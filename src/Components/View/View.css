@@ -7,8 +7,9 @@
   width: 70vw;
 }
 .viewParentDiv .imageShowDiv img {
-  width: 65vw;
-  height: 85vh;
+  width: 30vw;
+  height: 50vh;
+  margin-left: 20vh;
 }
 
 .viewParentDiv .rightSection {

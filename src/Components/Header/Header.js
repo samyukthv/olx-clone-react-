@@ -1,15 +1,30 @@
-import React from 'react';
-
+import React,{useContext} from 'react';
+import {useHistory } from 'react-router-dom'
 import './Header.css';
 import OlxLogo from '../../assets/OlxLogo';
 import Search from '../../assets/Search';
 import Arrow from '../../assets/Arrow';
 import SellButton from '../../assets/SellButton';
 import SellButtonPlus from '../../assets/SellButtonPlus';
+import { AuthContext, FirebaseContext } from '../../store/Context';
+import{ToastContainer,toast} from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css";
 function Header() {
+const history =useHistory()
+  const{user}=useContext(AuthContext)
+  const  {firebase}=useContext(FirebaseContext)
+
+  const handleSellClick = () => {
+    if (user) {
+      history.push('/create');
+    } else {
+      toast('Please login to sell.');
+    }
+  };
+
   return (
-    <div className="headerParentDiv">
-      <div className="headerChildDiv">
+    <div className="headerParentDiv" >
+      <div className="headerChildDiv" >
         <div className="brandName">
           <OlxLogo></OlxLogo>
         </div>
@@ -34,17 +49,24 @@ function Header() {
           <Arrow></Arrow>
         </div>
         <div className="loginPage">
-          <span>Login</span>
+          <span>{user ? ` Welcome ${user.displayName}`:<span onClick={()=>history.push('/login')}>Login</span>}</span>
           <hr />
         </div>
+          {user && <span onClick={()=>{
+            firebase.auth().signOut();
+            history.push('/login')
+          }}>Logout</span>}
 
         <div className="sellMenu">
           <SellButton></SellButton>
           <div className="sellMenuContent">
             <SellButtonPlus></SellButtonPlus>
-            <span>SELL</span>
+            <span onClick={handleSellClick}
+
+             >SELL</span>
           </div>
         </div>
+             <ToastContainer/>
       </div>
     </div>
   );
