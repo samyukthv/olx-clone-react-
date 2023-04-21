@@ -81,7 +81,7 @@ function Posts() {
                 <img src={product.url} alt="" />
               </div>
               <div className="content">
-                <p className="rate">&#x20B9; {product.price}</p>
+                <p className="rate">&#x20B9;   {product.price}</p>
                 <span className="kilometer">{product.category}</span>
                 <p className="name">{product.name}</p>
               </div>
